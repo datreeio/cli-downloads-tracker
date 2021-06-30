@@ -13,11 +13,11 @@ jobs:
       
       - name: Get current date
         run: |
-          echo "DATE=%d-%m-%Y" >> $GITHUB_ENV
+          echo "DATE=$("+%d-%m-%Y")" >> $GITHUB_ENV
         
       - name: cURL GitHub
         env:
-          URL: https://api.github.com/repos/datreeio/datree/releases++
+          URL: https://api.github.com/repos/datreeio/datree/releases
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl $URL -o ${{ env.DATE }}.json
@@ -28,4 +28,4 @@ jobs:
           git config --global user.email "github-actions@datree.io"
           git add .
           git commit -a -m "Automated tracking for ${{ env.DATE }}"
-          git push
+          git push --force master:https://${{GITHUB_TOKEN}}@github.com/datreeio/cli-downloads-tracker.git
