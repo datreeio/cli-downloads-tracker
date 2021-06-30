@@ -13,7 +13,7 @@ jobs:
       
       - name: Get current date
         run: |
-          echo "DATE=$(date '%d-%m-%Y')" >> $GITHUB_ENV
+          echo "DATE=$(date '+%d-%m-%Y')" >> $GITHUB_ENV
         
       - name: cURL GitHub
         env:
@@ -33,4 +33,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          branch: master
