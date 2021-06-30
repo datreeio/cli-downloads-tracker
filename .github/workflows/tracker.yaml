@@ -1,0 +1,27 @@
+name: Downloads Tracker
+
+on: pull_request
+# on: 
+#  schedule:
+#    - cron:  '0 4 * * *'
+
+jobs:
+  Tracker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=now::$('%d-%m-%Y')"
+        
+     - name: curl GitHub
+        run: |
+          curl https://api.github.com/repos/datreeio/datree/releases > ${{ steps.date.outputs.now }}.json
+
+      - name: Commit report
+        run: |
+          git config --global user.name 'downloads-tracker'
+          git config --global user.email 'github-actions@datree.io'
+          git commit -am "Automated tracking for ${{ steps.date.outputs.now }}"
+          git push
