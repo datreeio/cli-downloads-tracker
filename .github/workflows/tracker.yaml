@@ -17,11 +17,12 @@ jobs:
         
       - name: curl GitHub
         run: |
-          curl https://api.github.com/repos/datreeio/datree/releases > ${{ steps.date.outputs.now }}.json
+          echo "curl https://api.github.com/repos/datreeio/datree/releases > ${{ steps.date.outputs.now }}.json"
 
       - name: Commit report
         run: |
           git config --global user.name 'downloads-tracker'
           git config --global user.email 'github-actions@datree.io'
-          git commit -am "Automated tracking for ${{ steps.date.outputs.now }}"
+          git commit add .
+          git commit -a -m "Automated tracking for ${{ steps.date.outputs.now }}"
           git push
