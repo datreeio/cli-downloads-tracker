@@ -20,12 +20,7 @@ jobs:
           URL: https://api.github.com/repos/datreeio/datree/releases
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          curl \
-           -X POST \
-           $URL \
-           -H "Content-Type: application/json" \
-           -H "Authorization: token $GITHUB_TOKEN" \
-           -o ${{ steps.date.outputs.now }}.json"
+          curl $URL -o ${{ steps.date.outputs.now }}.json"
 
       - name: Commit report
         run: |
