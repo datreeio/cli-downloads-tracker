@@ -28,11 +28,11 @@ jobs:
           git config --global user.email "github-actions@datree.io"
           git add .
           git commit -a -m "Automated tracking for ${{ env.DATE }}"
-          git remote set-url origin https://datreeio/cli-downloads-tracker.git
-          git push origin main --force
+ #         git remote set-url origin https://datreeio/cli-downloads-tracker.git
+ #         git push origin main --force
           
-#       - name: Push changes
-#         uses: ad-m/github-push-action@master
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }}
-#           branch: master
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
