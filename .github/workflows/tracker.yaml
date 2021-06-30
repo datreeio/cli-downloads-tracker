@@ -13,7 +13,7 @@ jobs:
       
       - name: Get current date
         run: |
-          echo "DATE=$('%d-%m-%Y')" >> $GITHUB_ENV
+          echo "DATE=$(date '%d-%m-%Y')" >> $GITHUB_ENV
         
       - name: cURL GitHub
         env:
@@ -23,12 +23,14 @@ jobs:
           curl $URL -o ${{ env.DATE }}.json
 
       - name: Commit report
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "downloads-tracker"
           git config --global user.email "github-actions@datree.io"
           git add .
-          git remote set-url origin https://datreeio/cli-downloads-tracker.git
           git commit -a -m "Automated tracking for ${{ env.DATE }}"
-          git push origin master --force
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
