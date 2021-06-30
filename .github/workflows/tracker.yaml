@@ -15,7 +15,7 @@ jobs:
         id: date
         run: echo "::set-output name=now::$('%d-%m-%Y')"
         
-     - name: curl GitHub
+      - name: curl GitHub
         run: |
           curl https://api.github.com/repos/datreeio/datree/releases > ${{ steps.date.outputs.now }}.json
 
