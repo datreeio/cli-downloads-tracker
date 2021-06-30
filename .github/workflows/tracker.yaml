@@ -15,14 +15,22 @@ jobs:
         id: date
         run: echo "::set-output name=now::$('%d-%m-%Y')"
         
-      - name: curl GitHub
+      - name: cURL GitHub
+        env:
+          URL: https://api.github.com/repos/datreeio/datree/releases
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "curl https://api.github.com/repos/datreeio/datree/releases > ${{ steps.date.outputs.now }}.json"
+          curl \
+           -X POST \
+           $URL \
+           -H "Content-Type: application/json" \
+           -H "Authorization: token $GITHUB_TOKEN" \
+           -o ${{ steps.date.outputs.now }}.json"
 
       - name: Commit report
         run: |
-          git config --global user.name 'downloads-tracker'
-          git config --global user.email 'github-actions@datree.io'
-          git commit add .
+          git config --global user.name "downloads-tracker"
+          git config --global user.email "github-actions@datree.io"
+          git add .
           git commit -a -m "Automated tracking for ${{ steps.date.outputs.now }}"
           git push
