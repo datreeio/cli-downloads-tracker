@@ -26,11 +26,13 @@ jobs:
         run: |
           git config --global user.name "downloads-tracker"
           git config --global user.email "github-actions@datree.io"
-          git pull
+          git clone https://github.com/datreeio/cli-downloads-tracker.git
+          cd cli-downloads-tracker
           git checkout main
           git add .
           git commit -a -m "Automated tracking for ${{ env.DATE }}"
-          git push origin HEAD:main
+          git push
+#         git push origin HEAD:main
 #         git remote set-url origin https://datreeio/cli-downloads-tracker.git
 #         git push origin main --force
           
