@@ -27,6 +27,7 @@ jobs:
           git config --global user.name "downloads-tracker"
           git config --global user.email "github-actions@datree.io"
           git pull
+          git checkout main
           git add .
           git commit -a -m "Automated tracking for ${{ env.DATE }}"
           git push origin HEAD:main
