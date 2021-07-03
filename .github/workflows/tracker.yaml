@@ -1,9 +1,9 @@
 name: Downloads Tracker
 
-on: pull_request
-# on: 
-#  schedule:
-#    - cron:  '0 4 * * *'
+# on: pull_request
+on: 
+  schedule:
+    - cron:  '0 4 * * *'
 
 jobs:
   Tracker:
